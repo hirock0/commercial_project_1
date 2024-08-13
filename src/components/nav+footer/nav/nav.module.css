@@ -1,0 +1,26 @@
+
+.navUl>a{
+
+    @apply max-md:w-full max-md:p-2 max-md:bg-slate-400 max-md:rounded-sm max-md:hover:bg-slate-500 max-md:active:bg-slate-600 md:hover:underline md:underline-offset-8
+}
+
+.mainProfileNav::-webkit-scrollbar{
+    display: none;
+}
+.profileUl{
+    @apply flex flex-col gap-5
+}
+
+.profileUl>a>li{
+    @apply gap-3  p-2 rounded-sm border h-16 flex items-center 
+}
+.profileUl>a>li:hover{
+    box-shadow: 0 0 10px rgb(255, 82, 232);
+    background: rgb(253, 74, 214);
+    font-weight: 800;
+    border: none;
+    @apply rounded-sm overflow-hidden
+}
+.profileUl>a>li:active{
+    background: rgb(180, 0, 141);
+}
