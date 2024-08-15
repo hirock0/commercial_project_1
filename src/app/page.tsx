@@ -6,8 +6,8 @@ interface Props{
 const Home:React.FC<Props> = ({searchParams}) => {
   const searchdata = searchParams?.q || ""
   return (
-    <main className=" bg-black pt-10">
-      <div className=" flex justify-center items-center">
+    <main className=" bg-black pb-10 pt-10">
+      <div id="main" className=" flex justify-center items-center">
         <Products searchProducts = {searchdata}/>
       </div>
         

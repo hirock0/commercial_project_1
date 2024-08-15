@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-*{
+* {
   padding: 0%;
   margin: 0%;
   box-sizing: border-box;
@@ -11,13 +11,22 @@
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
 }
-main,footer,nav{
-  @apply pl-5 pr-5
+html {
+  scroll-behavior: smooth;
+}
+body {
+  @apply bg-slate-100;
+}
+main,
+footer,
+nav {
+  @apply pl-5 pr-5;
 }
 
-@media (min-width:1921px) {
-  main,footer{
+@media (min-width: 1921px) {
+  main,
+  footer {
     padding-left: 10%;
     padding-right: 10%;
-  }  
+  }
 }

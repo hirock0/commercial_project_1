@@ -7,6 +7,7 @@ export async function POST(req: NextRequest) {
     const reqBody = await req.json();
     const {
       productName,
+      productAnotherImages,
       productImageLink,
       price,
       rank,
@@ -14,13 +15,15 @@ export async function POST(req: NextRequest) {
       stock,
       brand,
       importFrom,
-      mandeIn,
+      madeIn,
       productDescriptions,
       recentDate,
     } = reqBody;
 
+
     const preSaveProduct = await new ProductsSchema({
       productName,
+      productAnotherImages,
       productImageLink,
       price,
       rank,
@@ -28,7 +31,7 @@ export async function POST(req: NextRequest) {
       stock,
       brand,
       importFrom,
-      mandeIn,
+      madeIn,
       productDescriptions,
       recentDate,
     });

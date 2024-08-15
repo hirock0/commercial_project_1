@@ -6,6 +6,8 @@ import { useEffect, useState, useCallback } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import axios from "axios";
 import { signOut, useSession } from "next-auth/react";
+import Loading from "@/app/loading";
+import CustomLoading from "@/components/custom_loading/CustomLoading";
 
 const ProfileNavDetails = [
   {
@@ -54,21 +56,21 @@ const Nav = () => {
     name: "",
     userImg: "",
     email: "",
-    userId:""
+    userId: "",
   });
   const [menuFlag, setMenuFlag] = useState<boolean>(false);
   const [searchData, setSearchData] = useState("");
   const [logOutPopup, setLogOutPopup] = useState(false);
   const [profileFlag, setProfileFlag] = useState(false);
-
+  const [logoutFlag, setLogoutFlag] = useState(false);
   const onSearch = async (data: any) => {
     try {
       data.preventDefault();
-      setTimeout(()=>{
-      const searchUrl = new URLSearchParams(window.location.search);
-      searchUrl.set("q", searchData);
-      router.replace(`${pathname}?${searchUrl}`);
-    },1000)
+      setTimeout(() => {
+        const searchUrl = new URLSearchParams(window.location.search);
+        searchUrl.set("q", searchData);
+        router.replace(`${pathname}?${searchUrl}`);
+      }, 1000);
     } catch (error: any) {
       throw new Error("something went wrong", error);
     }
@@ -87,10 +89,9 @@ const Nav = () => {
   }, [searchData]);
 
   useEffect(() => {
-    setTimeout(()=>{
+    setTimeout(() => {
       search();
-    },1000)
-  
+    }, 1000);
   }, [searchData]);
 
   const LoggedUser = useCallback(async () => {
@@ -130,6 +131,7 @@ const Nav = () => {
         className=" cursor-pointer"
       >
         <Image
+          priority
           src={loggedUser?.userImg || ""}
           alt="user"
           width={30}
@@ -215,12 +217,21 @@ const Nav = () => {
               onClick={() =>
                 setTimeout(() => {
                   signOut();
+                  setLogoutFlag((prev) => !prev);
                 }, 2000)
               }
               className=" text-sm w-20 h-8 rounded-sm bg-amber-600 hover:bg-amber-700 active:bg-amber-800"
             >
               Log Out
             </button>
+
+            <div
+              className={`${
+                !logoutFlag ? "hidden" : "block"
+              }  absolute top-0 w-full left-0 bg-slate-800/60`}
+            >
+              <CustomLoading />
+            </div>
           </div>
         </div>
       </div>
@@ -253,6 +264,7 @@ const Nav = () => {
             width={20}
             height={20}
             className=" "
+            priority
           />
         </button>
       </form>
@@ -265,6 +277,7 @@ const Nav = () => {
           width={25}
           height={25}
           className={menuFlag ? "hidden" : "block"}
+          priority
         />
         <Image
           onClick={() => setMenuFlag(!menuFlag)}
@@ -273,6 +286,7 @@ const Nav = () => {
           width={25}
           height={25}
           className={`${!menuFlag ? "hidden" : "block"}`}
+          priority
         />
       </div>
 
@@ -285,9 +299,6 @@ const Nav = () => {
         <Link href={"/"}>
           <li>Home</li>
         </Link>
-        <Link href={"/admin/product_upload"}>
-          <li>Admin</li>
-        </Link>
         <Link href={"/"}>
           <li>Category</li>
         </Link>
@@ -297,13 +308,19 @@ const Nav = () => {
         <Link href={"/"}>
           <li>Contact</li>
         </Link>
-        {
-          loggedUser.userId == undefined?
+        <Link
+          className={`${
+            loggedUser.email == "hirockdutta0@gmail.com" ? "block" : " hidden"
+          }`}
+          href={"/admin/product_upload"}
+        >
+          <li>Admin</li>
+        </Link>
+        {loggedUser.userId == undefined ? (
           <Link href={"/user/login"}>
-          <li>Login</li>
-        </Link>:null
-        }
-
+            <li>Login</li>
+          </Link>
+        ) : null}
       </ul>
     </nav>
   );

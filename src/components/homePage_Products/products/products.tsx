@@ -5,15 +5,20 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import Likes from "./likes/Likes";
 import Comment from "./comments/comment";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface Props {
   searchProducts: string | any;
 }
 
 const Products: React.FC<Props> = ({ searchProducts }) => {
+  const router = useRouter()
+
   const [products, setProducts] = useState([]);
 
   const onProducts = async () => {
+    
     try {
       const reqApi = await axios.get("/pages/api/products");
       setProducts(reqApi?.data?.Products);
@@ -28,8 +33,29 @@ const Products: React.FC<Props> = ({ searchProducts }) => {
     }
   });
 
+
+  const[perPageFlag,setPerPageFlag]=useState(0)
+
+  const perPage = 20
+
+  const productsIndex = Math.max( Math.ceil( FilterProducts.length/perPage))
+
+
+  const SlicePerPageProducts = FilterProducts?.slice(perPage*perPageFlag,perPage*(perPageFlag + 1))
+
+  const onNext = ()=>{
+    setPerPageFlag((prev)=>prev + 1)
+    router.push('#main')
+  }
+  const onPrev = ()=>{
+    setPerPageFlag((prev)=>prev - 1)
+    router.push('#main')
+  }
+
+
   useEffect(() => {
     onProducts();
+
   }, []);
   return (
     <div className={` w-full `}>
@@ -41,24 +67,20 @@ const Products: React.FC<Props> = ({ searchProducts }) => {
         }  `}
       >
         {FilterProducts.length !== 0 ? (
-          FilterProducts?.map((item: any, index: any) => (
+          SlicePerPageProducts?.map((item: any, index: any) => (
             <div
               key={index}
-              style={{
-                background: `url(${item?.productImageLink})`,
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "cover",
-                objectFit: "cover",
-              }}
-              className=" relative max-md:h-80 max-sm:h-96 md:h-80"
+              style={{boxShadow:"0 0 5px white"}}
+              className=" rounded-md overflow-hidden relative max-md:h-80 max-sm:h-96 md:h-80 "
             >
-              <div className=" flex-col text-xs text-white absolute bottom-0 left-0 h-3/6 w-full flex items-center justify-center backdrop:filter backdrop-blur-sm pr-5 pl-5">
+              <Image priority src={item?.productImageLink} alt="car" width={500} height={500} className=" h-full w-full object-cover"/>
+
+              <div className="  flex-col text-xs text-white absolute bottom-0 left-0 h-3/6 w-full flex items-center justify-center backdrop:filter backdrop-blur-sm pr-5 pl-5">
                 <h1 className="text-base">{item?.productName}</h1>
                 <h1>{item?.price} tk</h1>
-                <button className="  w-1/2 rounded-sm mt-2 h-6 bg-red-600 hover:bg-red-700 active:bg-red-800">
-                  Details
-                </button>
+                <Link href={`/car_details/${item?._id? item?._id.toString() : ""}`} className="  w-1/2 rounded-sm mt-2 h-6 bg-red-600 hover:bg-red-700 active:bg-red-800">
+                  <button className=" w-full h-full">Details</button>
+                </Link>
                 {/* like and comments_start */}
                 <div className=" flex mt-2 pt-2 border-t-2   w-full justify-between">
                   <div className=" cursor-pointer">
@@ -79,10 +101,17 @@ const Products: React.FC<Props> = ({ searchProducts }) => {
             </div>
           ))
         ) : (
-          <div className=" bg-white h-screen w-full flex items-center justify-center">
-            <h1 className=" text-xl">There are no products</h1>
-          </div>
+            <div className=" bg-white h-screen w-full flex items-center justify-center">
+              <h1 className=" text-xl">There are no products</h1>
+            </div>
         )}
+      </div>  
+      <div className=" text-white mt-10 flex justify-center items-center">
+       <div className=" w-1/2  flex items-center justify-between">
+          <button disabled={perPageFlag-1 < 0?true:false}  onClick={onPrev}>Previous</button>
+            <h1>{perPageFlag + 1} out of {productsIndex}</h1>
+          <button  onClick={onNext} disabled={perPageFlag+1 == productsIndex?true:false}>Next</button>
+        </div>
       </div>
     </div>
   );

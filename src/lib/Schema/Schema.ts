@@ -43,8 +43,8 @@ const productSchema = new mongoose.Schema({
   type: String,
   required:false
   },
-  productsLink: {
-    type: String,
+  productAnotherImages:{
+    type:Array,
     required:false
   },
   productImageLink: {
@@ -76,7 +76,7 @@ const productSchema = new mongoose.Schema({
     type: String,
     required:false
   },
-  mandeIn: {
+  madeIn: {
     type: String,
     required:false
   },

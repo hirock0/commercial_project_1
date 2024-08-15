@@ -59,7 +59,7 @@ const Comment: React.FC<Props> = ({ productId, comments }) => {
       userImg: loggedUser.userImg,
     };
     if (loggedUser?.userId !== undefined) {
-      commentConatiner.push(CommentsDets);
+      setCommentContainer((prev: any) => [...prev, CommentsDets]);
       const senComments = await axios.post(
         "/pages/api/products/comments",
         Comments
