@@ -1,5 +1,7 @@
 import Chart from "@/components/graph_chart/chart";
 import Garage from "@/components/homePage_Products/our_garages/garage";
+import Show_Rooms from "@/components/homePage_Products/our_show_rooms/show_room";
+import Show_Room from "@/components/homePage_Products/our_show_rooms/show_room";
 import Products from "@/components/homePage_Products/products/products";
 import Image from "next/image";
 interface Props {
@@ -51,7 +53,7 @@ const Home: React.FC<Props> = ({ searchParams }) => {
           </div>
           {/* our_garages_start */}
           <div className="">
-            <Garage />
+            <Show_Rooms />
           </div>
           {/* our_garages_start */}
         </div>

@@ -1,0 +1,18 @@
+.showRoomtext::-webkit-scrollbar {
+  width: 10px;
+}
+
+.showRoomtext::-webkit-scrollbar-track {
+  background: linear-gradient(45deg, rgb(0, 0, 0), red, black);
+
+  @apply rounded-md;
+}
+
+.showRoomtext::-webkit-scrollbar-thumb {
+  background: #00f7ff;
+  @apply rounded-md;
+}
+
+.showRoomtext::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

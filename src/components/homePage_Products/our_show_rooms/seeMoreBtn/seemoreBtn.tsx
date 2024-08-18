@@ -18,9 +18,9 @@ const SeemoreBtn = (props: any) => {
     <div className="">
       <p
         style={!seeMoreFlag ? SeeMore : null}
-        className={`${
-          !seeMoreFlag ? null : "overflow-y-scroll h-40 pr-2  "
-        } ${Style.garagetext} mt-5 max-sm:text-xs text-slate-300 `}
+        className={`${!seeMoreFlag ? null : "overflow-y-scroll h-40 pr-2  "} ${
+          Style.showRoomtext
+        } mt-5 max-sm:text-xs text-slate-400 `}
       >
         {props.descriptions}
       </p>
