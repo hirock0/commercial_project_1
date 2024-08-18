@@ -111,7 +111,7 @@ const Products: React.FC<Props> = ({ searchProducts }) => {
           ))
         ) : (
           <div
-            className={`${Style.searchBackground} text-white  h-screen w-full flex items-center justify-center`}
+            className={`${Style.searchBackground}  text-white  h-screen w-full flex items-center justify-center`}
           >
             <h1 className=" text-xl max-md:text-base">
               There are no products.

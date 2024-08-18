@@ -1,0 +1,6 @@
+.footer > div > div > div > ul > a > li:hover {
+  @apply underline underline-offset-4;
+}
+.footer > div > div > div > ul > a > li:active {
+  @apply text-yellow-600;
+}
