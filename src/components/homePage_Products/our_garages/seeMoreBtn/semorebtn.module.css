@@ -1,0 +1,20 @@
+
+
+.garagetext::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+.garagetext::-webkit-scrollbar-track {
+    background: linear-gradient(45deg,rgb(0, 0, 0),red,black);
+
+    @apply rounded-md
+  }
+  
+  .garagetext::-webkit-scrollbar-thumb {
+    background: #00f7ff;
+    @apply rounded-md
+  }
+  
+  .garagetext::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }

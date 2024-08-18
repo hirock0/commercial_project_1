@@ -77,7 +77,6 @@ const Car_details = (props:any) => {
 
         <h1 className=" mt-5 text-2xl">{productDetails?.productName}</h1>
         <h1>
-          {" "}
           &#2547; {new Number(productDetails?.price).toLocaleString()} tk
         </h1>
         <div className=" w-full flex items-center justify-center">

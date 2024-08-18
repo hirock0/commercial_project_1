@@ -27,8 +27,11 @@ const SignUp = () => {
         "/pages/api/user/signup",
         signupData
       );
-      if (sendSignupData.data.success) {
-        toast.success("SignUp Successful");
+      if (sendSignupData?.data.success) {
+        toast.success("Sign Up Successful");
+        router.push("/")
+      }else{
+        toast.success(sendSignupData?.data.message)
       }
     } catch (error: any) {
       throw new Error("something went wrong", error);

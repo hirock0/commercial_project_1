@@ -7,18 +7,18 @@ import Likes from "./likes/Likes";
 import Comment from "./comments/comment";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Style from "./products.module.css";
 
 interface Props {
   searchProducts: string | any;
 }
 
 const Products: React.FC<Props> = ({ searchProducts }) => {
-  const router = useRouter()
+  const router = useRouter();
 
   const [products, setProducts] = useState([]);
 
   const onProducts = async () => {
-    
     try {
       const reqApi = await axios.get("/pages/api/products");
       setProducts(reqApi?.data?.Products);
@@ -33,29 +33,28 @@ const Products: React.FC<Props> = ({ searchProducts }) => {
     }
   });
 
+  const [perPageFlag, setPerPageFlag] = useState(0);
 
-  const[perPageFlag,setPerPageFlag]=useState(0)
+  const perPage = 20;
 
-  const perPage = 20
+  const productsIndex = Math.max(Math.ceil(FilterProducts.length / perPage));
 
-  const productsIndex = Math.max( Math.ceil( FilterProducts.length/perPage))
+  const SlicePerPageProducts = FilterProducts?.slice(
+    perPage * perPageFlag,
+    perPage * (perPageFlag + 1)
+  );
 
-
-  const SlicePerPageProducts = FilterProducts?.slice(perPage*perPageFlag,perPage*(perPageFlag + 1))
-
-  const onNext = ()=>{
-    setPerPageFlag((prev)=>prev + 1)
-    router.push('#main')
-  }
-  const onPrev = ()=>{
-    setPerPageFlag((prev)=>prev - 1)
-    router.push('#main')
-  }
-
+  const onNext = () => {
+    setPerPageFlag((prev) => prev + 1);
+    router.push("#main");
+  };
+  const onPrev = () => {
+    setPerPageFlag((prev) => prev - 1);
+    router.push("#main");
+  };
 
   useEffect(() => {
     onProducts();
-
   }, []);
   return (
     <div className={` w-full `}>
@@ -70,15 +69,25 @@ const Products: React.FC<Props> = ({ searchProducts }) => {
           SlicePerPageProducts?.map((item: any, index: any) => (
             <div
               key={index}
-              style={{boxShadow:"0 0 5px white"}}
+              style={{ boxShadow: "0 0 5px white" }}
               className=" rounded-md overflow-hidden relative max-md:h-80 max-sm:h-96 md:h-80 "
             >
-              <Image priority src={item?.productImageLink} alt="car" width={500} height={500} className=" h-full w-full object-cover"/>
+              <Image
+                priority
+                src={item?.productImageLink}
+                alt="car"
+                width={500}
+                height={500}
+                className=" h-full w-full object-cover"
+              />
 
               <div className="  flex-col text-xs text-white absolute bottom-0 left-0 h-3/6 w-full flex items-center justify-center backdrop:filter backdrop-blur-sm pr-5 pl-5">
                 <h1 className="text-base">{item?.productName}</h1>
-                <h1>{item?.price} tk</h1>
-                <Link href={`/car_details/${item?._id? item?._id.toString() : ""}`} className="  w-1/2 rounded-sm mt-2 h-6 bg-red-600 hover:bg-red-700 active:bg-red-800">
+                <h1>&#2547; {new Number(item?.price).toLocaleString()} tk</h1>
+                <Link
+                  href={`/car_details/${item?._id ? item?._id.toString() : ""}`}
+                  className="  w-1/2 rounded-sm mt-2 h-6 bg-red-600 hover:bg-red-700 active:bg-red-800"
+                >
                   <button className=" w-full h-full">Details</button>
                 </Link>
                 {/* like and comments_start */}
@@ -101,16 +110,36 @@ const Products: React.FC<Props> = ({ searchProducts }) => {
             </div>
           ))
         ) : (
-            <div className=" bg-white h-screen w-full flex items-center justify-center">
-              <h1 className=" text-xl">There are no products</h1>
-            </div>
+          <div
+            className={`${Style.searchBackground} text-white  h-screen w-full flex items-center justify-center`}
+          >
+            <h1 className=" text-xl max-md:text-base">
+              There are no products.
+            </h1>
+          </div>
         )}
-      </div>  
+      </div>
       <div className=" text-white mt-10 flex justify-center items-center">
-       <div className=" w-1/2  flex items-center justify-between">
-          <button disabled={perPageFlag-1 < 0?true:false}  onClick={onPrev}>Previous</button>
-            <h1>{perPageFlag + 1} out of {productsIndex}</h1>
-          <button  onClick={onNext} disabled={perPageFlag+1 == productsIndex?true:false}>Next</button>
+        <div className=" w-1/2  flex items-center justify-between">
+          <button
+            disabled={perPageFlag - 1 < 0 ? true : false}
+            onClick={onPrev}
+          >
+            Previous
+          </button>
+          <h1>
+            {perPageFlag + 1} out of {productsIndex}
+          </h1>
+          <button
+            onClick={onNext}
+            disabled={
+              perPageFlag + 1 == productsIndex || FilterProducts.length == 0
+                ? true
+                : false
+            }
+          >
+            Next
+          </button>
         </div>
       </div>
     </div>

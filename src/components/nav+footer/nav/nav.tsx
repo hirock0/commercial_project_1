@@ -8,6 +8,7 @@ import axios from "axios";
 import { signOut, useSession } from "next-auth/react";
 import Loading from "@/app/loading";
 import CustomLoading from "@/components/custom_loading/CustomLoading";
+import toast from "react-hot-toast";
 
 const ProfileNavDetails = [
   {
@@ -117,6 +118,21 @@ const Nav = () => {
     });
   };
 
+  const onLogout = async () => {
+    try {
+      const logout = await axios.get("/pages/api/user/logout");
+      console.log(logout);
+      if (logout?.data.success) {
+        toast.success(logout?.data.message);
+        setLogoutFlag(false);
+      } else {
+        toast.success(logout?.data.message);
+      }
+    } catch (error: any) {
+      throw new Error("Something went wrong", error);
+    }
+  };
+
   useEffect(() => {
     LoggedUser();
     windowEvent();
@@ -146,7 +162,7 @@ const Nav = () => {
         className={`${Style.mainProfileNav} ${
           !profileFlag ? " -translate-x-full " : "translate-x-0"
         } ${
-          sessionData.status !== "authenticated" ? " hidden" : " block"
+          loggedUser?.email == undefined ? " hidden" : " block"
         } transition-all fixed max-sm:w-52 sm:w-52 md:w-72 h-screen top-20  left-0 bg-slate-800 p-5 overflow-y-scroll pb-32 `}
       >
         <div className=" ">
@@ -216,7 +232,7 @@ const Nav = () => {
             <button
               onClick={() =>
                 setTimeout(() => {
-                  signOut();
+                  sessionData?.data == null ? onLogout() : signOut();
                   setLogoutFlag((prev) => !prev);
                 }, 2000)
               }

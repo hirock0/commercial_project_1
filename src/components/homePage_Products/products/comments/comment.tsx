@@ -14,6 +14,13 @@ interface Props {
 
 const Comment: React.FC<Props> = ({ productId, comments }) => {
   const [commentFlag, setCommentFlag] = useState(false);
+  const[commentLength,setCommentLength]=useState(0)
+
+  const  onComment = ()=>{
+    setCommentLength(comments.length)
+  }
+
+
   const {
     register,
     handleSubmit,
@@ -65,6 +72,7 @@ const Comment: React.FC<Props> = ({ productId, comments }) => {
         Comments
       );
       if (senComments?.data.success) {
+        setCommentLength((prev)=>prev + 1)
         reset();
       }
     } else {
@@ -81,6 +89,7 @@ const Comment: React.FC<Props> = ({ productId, comments }) => {
   useEffect(() => {
     windowEvents();
     LoggedUser();
+    onComment();
   }, []);
 
   return (
@@ -92,7 +101,7 @@ const Comment: React.FC<Props> = ({ productId, comments }) => {
         }}
       >
         <h1 className="">Comments</h1>
-        <h1>{comments.length}</h1>
+        <h1>{commentLength}</h1>
       </button>
 
       {/* popup_start */}
