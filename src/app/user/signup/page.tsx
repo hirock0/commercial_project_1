@@ -55,7 +55,7 @@ const SignUp = () => {
   };
 
   return (
-    <main className={`${Style.main}`}>
+    <main className={`${Style.main} pb-10`}>
       <section className=" mt-5">
         <div className="  flex gap-2 max-md:flex-col-reverse ">
           <div

@@ -81,7 +81,7 @@ const ProfilePage = () => {
   }, []);
 
   return (
-    <main className=" pb-10 pt-10 bg-slate-600 text-white">
+    <main className="max-md:text-sm pb-10 pt-10 px-20 max-md:px-10 max-sm:p-5 bg-slate-950 text-white ">
       <section>
         <div className=" flex items-center justify-center ">
           <div className=" flex flex-col justify-center items-center ">
@@ -94,7 +94,7 @@ const ProfilePage = () => {
                 alt="uerImage"
                 width={100}
                 height={100}
-                className=" rounded-full"
+                className=" rounded-full max-md:w-16 max-md:h-16"
               />
             </div>
 
@@ -103,12 +103,17 @@ const ProfilePage = () => {
           </div>
         </div>
 
-        <div className=" mt-5">
+        <div className=" mt-5  max-sm:text-xs">
           <div className=" pb-5 flex items-center justify-end">
-            <button onClick={() => setEditFlag(!editFlag)}>Edit</button>
+            <button
+              onClick={() => setEditFlag(!editFlag)}
+              className=" px-10 py-1 rounded-sm bg-orange-600 hover:bg-orange-700 active:bg-orange-800"
+            >
+              Edit
+            </button>
           </div>
           <form onSubmit={onProfileEdit} className="">
-            <div className=" grid grid-cols-2 gap-5">
+            <div className=" grid grid-cols-2 max-sm:grid-cols-1 gap-5">
               <div className=" relative">
                 <input
                   value={editData.name}
@@ -276,7 +281,11 @@ const ProfilePage = () => {
               <button
                 disabled={!editFlag ? true : false}
                 type="submit"
-                className=" w-1/2 py-2 rounded-lg bg-slate-800"
+                className={` ${
+                  !editFlag
+                    ? "w-1/2 py-2 rounded-lg bg-slate-800 opacity-50"
+                    : "w-1/2 py-2 rounded-lg bg-slate-800 hover:bg-zinc-800 active:bg-slate-900"
+                } `}
               >
                 Submit
               </button>

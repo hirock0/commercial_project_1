@@ -8,3 +8,6 @@
 .profileUl {
   @apply flex flex-col gap-5;
 }
+.navUl::-webkit-scrollbar {
+  display: none;
+}

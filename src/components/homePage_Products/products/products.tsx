@@ -86,7 +86,7 @@ const Products: React.FC<Props> = ({ searchProducts }) => {
                 <h1>&#2547; {new Number(item?.price).toLocaleString()} tk</h1>
                 <Link
                   href={`/car_details/${item?._id ? item?._id.toString() : ""}`}
-                  className="  w-1/2 rounded-sm mt-2 h-6 bg-red-600 hover:bg-red-700 active:bg-red-800"
+                  className="  w-1/2 rounded-sm mt-2 h-6 bg-orange-600 hover:bg-orange-700 active:bg-orange-800"
                 >
                   <button className=" w-full h-full">Details</button>
                 </Link>
@@ -120,15 +120,15 @@ const Products: React.FC<Props> = ({ searchProducts }) => {
         )}
       </div>
       <div className=" text-white mt-10 flex justify-center items-center">
-        <div className=" w-1/2  flex items-center justify-between">
+        <div className=" w-1/2 max-md:w-full flex items-center justify-between">
           <button
             disabled={perPageFlag - 1 < 0 ? true : false}
             onClick={onPrev}
           >
             Previous
           </button>
-          <h1>
-            {perPageFlag + 1} out of {productsIndex}
+          <h1 className=" flex items-center gap-5 max-md:gap-3 border max-md:px-3 px-5 py-1 rounded-md">
+            {perPageFlag + 1} <span> out of</span> {productsIndex}
           </h1>
           <button
             onClick={onNext}

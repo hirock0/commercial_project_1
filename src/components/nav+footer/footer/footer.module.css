@@ -4,6 +4,4 @@
 .footer > div > div > div > ul > a > li:active {
   @apply text-yellow-600;
 }
-.footer > div > div > div > h1 {
-  @apply text-xl max-md:text-base;
-}
+

@@ -18,24 +18,40 @@ export async function POST(request: NextRequest) {
       userid,
     } = reqProfileData;
 
-    await UserSchema.findByIdAndUpdate(
-      { _id: userid },
-      {
-        userImg: userImg,
-        name: name,
-        email: email,
-        contact: contact,
-        address: {
-          division: division,
-          district: district,
-          thana: thana,
-          postOffice: postOffice,
-          postCode: postCode,
-        },
-      }
-    );
+    if (userImg == "") {
+      await UserSchema.findByIdAndUpdate(
+        { _id: userid },
+        {
+          name: name,
+          email: email,
+          contact: contact,
+          address: {
+            division: division,
+            district: district,
+            thana: thana,
+            postOffice: postOffice,
+            postCode: postCode,
+          },
+        }
+      );
 
-    return NextResponse.json({ message: "Profile is updated", success: true });
+      return NextResponse.json({
+        message: "Profile is updated",
+        success: true,
+      });
+    } else {
+      await UserSchema.findByIdAndUpdate(
+        { _id: userid },
+        {
+          userImg: userImg,
+        }
+      );
+
+      return NextResponse.json({
+        message: "Image is updated",
+        success: true,
+      });
+    }
   } catch (error: any) {
     return NextResponse.json({
       message: "Profile is not updated",

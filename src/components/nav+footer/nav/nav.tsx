@@ -6,22 +6,20 @@ import { useEffect, useState, useCallback } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import axios from "axios";
 import { signOut, useSession } from "next-auth/react";
-import Loading from "@/app/loading";
 import CustomLoading from "@/components/custom_loading/CustomLoading";
 import toast from "react-hot-toast";
-
 const ProfileNavDetails = [
   {
     id: 0,
     svg: "M2 3.9934C2 3.44476 2.45531 3 2.9918 3H21.0082C21.556 3 22 3.44495 22 3.9934V20.0066C22 20.5552 21.5447 21 21.0082 21H2.9918C2.44405 21 2 20.5551 2 20.0066V3.9934ZM6 15V17H18V15H6ZM6 7V13H12V7H6ZM14 7V9H18V7H14ZM14 11V13H18V11H14ZM8 9H10V11H8V9Z",
     title: "Profile",
-    link: "/user/informations/profile",
+    link: "/user/profile",
   },
   {
     id: 1,
     svg: "M12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2ZM12 5C8.13401 5 5 8.13401 5 12C5 13.8525 5.71957 15.5368 6.89445 16.7889L7.05025 16.9497L8.46447 15.5355C7.55964 14.6307 7 13.3807 7 12C7 9.23858 9.23858 7 12 7C12.448 7 12.8822 7.05892 13.2954 7.16944L14.8579 5.60806C13.9852 5.21731 13.018 5 12 5ZM18.3924 9.14312L16.8306 10.7046C16.9411 11.1178 17 11.552 17 12C17 13.3807 16.4404 14.6307 15.5355 15.5355L16.9497 16.9497C18.2165 15.683 19 13.933 19 12C19 10.9824 18.7829 10.0155 18.3924 9.14312ZM16.2426 6.34315L12.517 10.0675C12.3521 10.0235 12.1788 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12C14 11.8212 13.9765 11.6479 13.9325 11.483L17.6569 7.75736L16.2426 6.34315Z",
     title: "Dashboard",
-    link: "/",
+    link: "/user/informations/dashboard",
   },
   {
     id: 2,
@@ -124,7 +122,7 @@ const Nav = () => {
       if (logout?.data.success) {
         toast.success(logout?.data.message);
         setLogoutFlag(false);
-        router.push("/")
+        router.push("/");
       } else {
         toast.success(logout?.data.message);
       }
@@ -160,8 +158,8 @@ const Nav = () => {
             priority
             src={loggedUser?.userImg || ""}
             alt="user"
-            width={30}
-            height={30}
+            width={40}
+            height={40}
             className=" rounded-full"
           />
         </div>
@@ -174,7 +172,7 @@ const Nav = () => {
           !profileFlag ? " -translate-x-full " : "translate-x-0"
         } ${
           loggedUser?.email == undefined ? " hidden" : " block"
-        } transition-all fixed max-sm:w-52 sm:w-52 md:w-72 h-screen top-20  left-0 bg-slate-800 p-5 overflow-y-scroll pb-32 `}
+        } transition-all max-md:text-sm fixed max-sm:w-52 sm:w-52 md:w-72 h-screen top-20  left-0 bg-slate-800 p-5 overflow-y-scroll pb-32 `}
       >
         <div className=" ">
           <div className=" flex flex-col gap-4 items-center justify-center">
@@ -243,7 +241,9 @@ const Nav = () => {
             <button
               onClick={() =>
                 setTimeout(() => {
-                  sessionData?.data == null ? onLogout() : signOut({redirect:true,callbackUrl:"/"});
+                  sessionData?.data == null
+                    ? onLogout()
+                    : signOut({ redirect: true, callbackUrl: "/" });
                   setLogoutFlag((prev) => !prev);
                 }, 2000)
               }
@@ -269,7 +269,7 @@ const Nav = () => {
         onSubmit={(data) => onSearch(data)}
         className={`${
           pathname == "/" ? "block" : "hidden"
-        } w-3/4 md:w-2/6 flex items-center relative overflow-hidden rounded-full`}
+        }  md:w-2/5 max-md:w-3/5 flex items-center relative overflow-hidden rounded-full`}
       >
         <input
           value={searchData}
@@ -278,7 +278,7 @@ const Nav = () => {
           name="search"
           id="search"
           placeholder="Search..."
-          className=" outline-none text-black pl-5 h-10 rounded-full w-full "
+          className=" outline-none text-black pl-5 h-10 rounded-full w-full  "
         />
         <button
           type="submit"
@@ -321,7 +321,7 @@ const Nav = () => {
         onClick={(e) => e.stopPropagation()}
         className={` ${Style.navUl} max-md:${
           !menuFlag ? "  max-md:translate-x-full" : " max-md:translate-x-0"
-        } text-nowrap   max-md:transition-all max-md:fixed max-md:right-0 max-md:top-20 max-md:backdrop:filter max-md:backdrop-blur-3xl max-md:p-5 max-md:w-52 max-md:flex-col max-md:items-start max-md:justify-normal flex items-center justify-between gap-5`}
+        } overflow-y-scroll h-1/2 text-nowrap max-md:text-sm max-md:transition-all max-md:fixed max-md:right-0 max-md:top-20 max-md:backdrop:filter max-md:backdrop-blur-3xl max-md:p-5 max-md:w-52 max-md:flex-col max-md:items-start max-md:justify-normal flex items-center justify-between gap-5`}
       >
         <Link href={"/"}>
           <li>Home</li>
