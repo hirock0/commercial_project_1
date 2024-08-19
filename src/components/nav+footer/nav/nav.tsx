@@ -121,10 +121,10 @@ const Nav = () => {
   const onLogout = async () => {
     try {
       const logout = await axios.get("/pages/api/user/logout");
-      console.log(logout);
       if (logout?.data.success) {
         toast.success(logout?.data.message);
         setLogoutFlag(false);
+        router.push("/")
       } else {
         toast.success(logout?.data.message);
       }
@@ -140,21 +140,32 @@ const Nav = () => {
 
   return (
     <nav className=" z-50 bg-black text-white sticky top-0  h-20 flex items-center justify-between">
-      <div
-        onClick={(e) => {
-          e.stopPropagation(), setProfileFlag(!profileFlag), setMenuFlag(false);
-        }}
-        className=" cursor-pointer"
-      >
+      {loggedUser?.userImg == undefined ? (
         <Image
-          priority
-          src={loggedUser?.userImg || ""}
-          alt="user"
-          width={30}
-          height={30}
-          className=" rounded-full"
+          src={"/images/Hirock_logo.png"}
+          alt="HirockLogo"
+          width={40}
+          height={40}
         />
-      </div>
+      ) : (
+        <div
+          onClick={(e) => {
+            e.stopPropagation(),
+              setProfileFlag(!profileFlag),
+              setMenuFlag(false);
+          }}
+          className=" cursor-pointer"
+        >
+          <Image
+            priority
+            src={loggedUser?.userImg || ""}
+            alt="user"
+            width={30}
+            height={30}
+            className=" rounded-full"
+          />
+        </div>
+      )}
 
       {/* Profile_start */}
       <div
@@ -186,12 +197,12 @@ const Nav = () => {
         <ul className={` ${Style.profileUl} mt-5 border-t pt-5`}>
           {ProfileNavDetails.map((item: any, index: any) => (
             <Link key={index} href={item?.link}>
-              <li>
+              <li className="  flex  gap-5 py-5 pl-5 border-b-2 border-dotted border-purple-600 hover:border hover:border-dotted active:bg-slate-900 hover:rounded-md hover:shadow hover:shadow-white">
                 <svg
                   className=" w-5 h-5"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
-                  fill="yellow"
+                  fill="white"
                 >
                   <path d={item.svg}></path>
                 </svg>
@@ -203,7 +214,7 @@ const Nav = () => {
 
         <div
           onClick={() => setLogOutPopup(!logOutPopup)}
-          className=" p-2 rounded-sm bg-red-600 h-16 select-none mt-5 flex  items-center gap-5 hover:bg-red-700  active:bg-red-800"
+          className="py-5 pl-5 rounded-sm bg-slate-700 h-16 select-none mt-5 flex  items-center gap-5 hover:bg-slate-600  active:bg-slate-900"
         >
           <svg
             className=" w-5 h-5"
@@ -232,7 +243,7 @@ const Nav = () => {
             <button
               onClick={() =>
                 setTimeout(() => {
-                  sessionData?.data == null ? onLogout() : signOut();
+                  sessionData?.data == null ? onLogout() : signOut({redirect:true,callbackUrl:"/"});
                   setLogoutFlag((prev) => !prev);
                 }, 2000)
               }
@@ -267,12 +278,12 @@ const Nav = () => {
           name="search"
           id="search"
           placeholder="Search..."
-          className=" outline-none text-black pl-2 h-10 rounded-full w-full "
+          className=" outline-none text-black pl-5 h-10 rounded-full w-full "
         />
         <button
           type="submit"
           disabled={searchData == ""}
-          className={` absolute right-0 bg-white h-full flex items-center justify-center w-10`}
+          className={` cursor-pointer absolute right-0 bg-white h-full flex items-center justify-center w-10`}
         >
           <Image
             src={"/assets/search-2-line.svg"}

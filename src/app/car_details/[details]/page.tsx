@@ -10,9 +10,7 @@ import "swiper/css/pagination";
 import { SwiperSlide, Swiper } from "swiper/react";
 import toast from "react-hot-toast";
 
-
-
-const Car_details = (props:any) => {
+const Car_details = (props: any) => {
   const productId = props?.params?.details;
   const [productDetails, setProductDetails] = useState<any>([]);
 
@@ -76,9 +74,7 @@ const Car_details = (props:any) => {
         </div>
 
         <h1 className=" mt-5 text-2xl">{productDetails?.productName}</h1>
-        <h1>
-          &#2547; {new Number(productDetails?.price).toLocaleString()} tk
-        </h1>
+        <h1>&#2547; {new Number(productDetails?.price).toLocaleString()} tk</h1>
         <div className=" w-full flex items-center justify-center">
           <button
             onClick={() =>

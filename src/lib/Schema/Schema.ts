@@ -8,6 +8,15 @@ const UserSchemaData = new mongoose.Schema({
   email: { type:String, ref: 'email', required: false },
   password: { type:String, ref: 'password', required: false },
   userImg:{ type:String, ref: 'userImg', required: false },
+  contact: { type:String, ref: 'contact', required: false },
+  address:{
+    division:{ type:String, ref: 'division', required: false },
+    district:{ type:String, ref: 'district', required: false },
+    thana:{ type:String, ref: 'thana', required: false },
+    postOffice:{ type:String, ref: 'postOffice', required: false },
+    postCode:{ type:String, ref: 'postCode', required: false },
+
+  },
   recentDate:{type:String, ref: 'userImg', required: false},
   isVerify: {
   type: Boolean,

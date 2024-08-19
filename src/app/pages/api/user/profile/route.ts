@@ -1,0 +1,45 @@
+import { NextRequest, NextResponse } from "next/server";
+import dbConnect from "@/lib/DB_Connection/dbConnection";
+import { UserSchema } from "@/lib/Schema/Schema";
+export async function POST(request: NextRequest) {
+  await dbConnect();
+  try {
+    const reqProfileData = await request.json();
+    const {
+      name,
+      email,
+      contact,
+      division,
+      district,
+      thana,
+      postOffice,
+      postCode,
+      userImg,
+      userid,
+    } = reqProfileData;
+
+    await UserSchema.findByIdAndUpdate(
+      { _id: userid },
+      {
+        userImg: userImg,
+        name: name,
+        email: email,
+        contact: contact,
+        address: {
+          division: division,
+          district: district,
+          thana: thana,
+          postOffice: postOffice,
+          postCode: postCode,
+        },
+      }
+    );
+
+    return NextResponse.json({ message: "Profile is updated", success: true });
+  } catch (error: any) {
+    return NextResponse.json({
+      message: "Profile is not updated",
+      success: false,
+    });
+  }
+}

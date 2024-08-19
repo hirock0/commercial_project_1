@@ -36,7 +36,7 @@ export const authOption: NextAuthOptions = {
           if (isPasswordCorrect) {
             return findUser;
           } else {
-            console.log("password is incorrect");
+            throw new Error("password is incorrect");
           }
         } catch (error: any) {
           throw new Error(error);
@@ -64,6 +64,15 @@ export const authOption: NextAuthOptions = {
             name: user?.name,
             email: user?.email,
             userImg: user?.image,
+            contact:"",
+            address:{
+              division:"",
+              district:"",
+              thana:"",
+              postOffice:"",
+              postCode:"",
+          
+            },
             recentDate: new Date().toLocaleDateString(),
           });
           const SaveData = await PreSaveData.save();

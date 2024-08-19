@@ -8,21 +8,31 @@ const Footer = () => {
     >
       {/* --------------- */}
       <div className=" flex items-center justify-between">
-        <div className="">logo</div>
+        <div className="">
+          <Image
+            src={"/images/Hirock_logo.png"}
+            alt="HirockLogo"
+            width={50}
+            height={50}
+          />
+        </div>
         <div className=" flex gap-5 max-md:gap-2 items-center">
-          <div className="">
+          <div className=" max-sm:hidden">
             <h1>Ready to get started</h1>
           </div>
           <div className="">
-            <button className=" px-4 max-md:px-2 py-2 max-md:py-1 rounded-lg bg-gradient-to-tr from-orange-400 via-red-600 to-red-700 hover:from-orange-500 hover:via-red-700 hover:to-red-800 active:from-orange-600 active:via-red-800 active:to-red-900 ">
+            <Link
+              href={"/"}
+              className=" px-4 max-md:px-2 py-2 max-md:py-1 rounded-lg bg-gradient-to-tr from-orange-400 via-red-600 to-red-700 hover:from-orange-500 hover:via-red-700 hover:to-red-800 active:from-orange-600 active:via-red-800 active:to-red-900 "
+            >
               Get Started
-            </button>
+            </Link>
           </div>
         </div>
       </div>
       {/* ---------------------- */}
 
-      <div className=" flex justify-center items-center w-full">
+      <div className=" lg:mt-10 flex justify-center items-center w-full">
         <div className=" w-full mt-5 flex justify-between max-md:grid max-md:grid-cols-2 max-md:gap-5 max-md:items-center ">
           <div className=" max-md:rounded-md max-md:bg-slate-900 max-md:p-5  max-md:flex max-md:flex-col max-md:items-center">
             <h1 className=" max-md:underline max-md:underline-offset-4">
@@ -98,7 +108,7 @@ const Footer = () => {
               </button>
             </form>
             <ul className=" flex gap-5 mt-5">
-              <Link href={""}>
+              <Link href={"https://www.facebook.com/profile.php?id=100028605347325"}>
                 <li>
                   <Image
                     src={"/assets/facebook.svg"}
@@ -134,7 +144,7 @@ const Footer = () => {
       </div>
       <div className=" mt-20">
         <h1 className=" text-center ">
-          © 2027 UIDesign.to - All rights reserved.
+          © 2027 Motors.to - All rights reserved.
         </h1>
       </div>
     </footer>
