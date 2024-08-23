@@ -8,9 +8,9 @@ declare module "next-auth" {
     isAcceptingMessage?: boolean;
     username?: string;
     userImg?: string;
-    picture?:string;
-    NanoId?:string;
-    id?:string;
+    picture?: string;
+    NanoId?: string;
+    id?: string;
   }
   interface Session {
     user: {
@@ -19,9 +19,9 @@ declare module "next-auth" {
       isAcceptingMessage?: boolean;
       username?: string;
       userImg?: string;
-      picture?:string;
-      NanoId?:string;
-      id?:string;
+      picture?: string;
+      NanoId?: string;
+      id?: string;
     } & DefaultSession["user"];
   }
 }
@@ -33,8 +33,8 @@ declare module "next-auth/jwt" {
     isAcceptingMessage?: boolean;
     username?: string;
     userImg?: string;
-    picture?:string;
-    NanoId?:string;
-    id?:string;
+    picture?: string;
+    NanoId?: string;
+    id?: string;
   }
 }

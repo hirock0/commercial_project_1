@@ -1,4 +1,6 @@
-.navUl > a {
+.navUl > a,
+.navUl > li,
+.navUl > ul > a > li {
   @apply max-md:w-full max-md:p-2 max-md:bg-slate-400 max-md:rounded-sm max-md:hover:bg-slate-500 max-md:active:bg-slate-600 md:hover:underline md:underline-offset-8;
 }
 

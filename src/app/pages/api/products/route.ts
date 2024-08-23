@@ -20,7 +20,6 @@ export async function POST(req: NextRequest) {
       recentDate,
     } = reqBody;
 
-
     const preSaveProduct = await new ProductsSchema({
       productName,
       productAnotherImages,

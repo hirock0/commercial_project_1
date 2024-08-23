@@ -1,10 +1,8 @@
-.searchBackground{
-
-    background: url("../../../../public/assets/car_garage.jpg");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-color: rgba(0, 0, 0, 0.568);
-    background-blend-mode: overlay;
-
+.searchBackground {
+  background: url("../../../../public/assets/car_garage.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: rgba(0, 0, 0, 0.568);
+  background-blend-mode: overlay;
 }

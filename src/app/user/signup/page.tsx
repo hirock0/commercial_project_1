@@ -29,9 +29,9 @@ const SignUp = () => {
       );
       if (sendSignupData?.data.success) {
         toast.success("Sign Up Successful");
-        router.push("/")
-      }else{
-        toast.success(sendSignupData?.data.message)
+        router.push("/");
+      } else {
+        toast.success(sendSignupData?.data.message);
       }
     } catch (error: any) {
       throw new Error("something went wrong", error);

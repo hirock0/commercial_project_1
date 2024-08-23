@@ -9,15 +9,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
   await dbConnect();
   try {
     const reqBody = await req.json();
-    const {
-      NanoId,
-      name,
-      email,
-      password,
-      userImg,
-      recentDate,
-
-    } = reqBody;
+    const { NanoId, name, email, password, userImg, recentDate } = reqBody;
 
     const findUser = await UserSchema.findOne({ email: email });
     if (findUser == null) {
@@ -28,13 +20,13 @@ export async function POST(req: NextRequest, res: NextResponse) {
         email,
         password: hashedPassword,
         userImg,
-        contact:"",
-        address:{
-          division:"",
-          district:"",
-          thana:"",
-          postOffice:"",
-          postCode:"",
+        contact: "",
+        address: {
+          division: "",
+          district: "",
+          thana: "",
+          postOffice: "",
+          postCode: "",
         },
         recentDate,
       });

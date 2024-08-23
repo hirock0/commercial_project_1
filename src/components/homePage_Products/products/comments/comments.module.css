@@ -1,5 +1,3 @@
-.commentsBox::-webkit-scrollbar{
-
-    display: none;
-
+.commentsBox::-webkit-scrollbar {
+  display: none;
 }

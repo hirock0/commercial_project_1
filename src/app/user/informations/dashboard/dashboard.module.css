@@ -1,0 +1,10 @@
+
+.MonthBuyingDiv>select{
+    @apply bg-white h-8 rounded-md w-full px-2
+}
+.cardSection_1>div{
+    @apply  shadow shadow-slate-300 w-full bg-white rounded-lg p-5 h-72 max-md:h-80
+}
+.cardSection_2>div{
+    @apply  bg-white w-full rounded-lg  h-80 max-md:h-72 p-5 shadow shadow-slate-300
+}

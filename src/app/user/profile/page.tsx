@@ -5,8 +5,15 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import Style from "./profile.module.css";
 import toast from "react-hot-toast";
-
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { AllApiHandler } from "@/utils/redux/slices/slice";
 const ProfilePage = () => {
+  const dispatch: any = useDispatch();
+
+  const SelectorData = useSelector((state: any) => state);
+  console.log(SelectorData);
+
   const [userData, setUser] = useState<any>({});
   const [editData, setEditData] = useState({
     name: "",
@@ -78,10 +85,11 @@ const ProfilePage = () => {
 
   useEffect(() => {
     profileData();
+    dispatch(AllApiHandler());
   }, []);
 
   return (
-    <main className="max-md:text-sm pb-10 pt-10 px-20 max-md:px-10 max-sm:p-5 bg-slate-950 text-white ">
+    <main className=" max-md:text-sm pb-10 pt-5  bg-slate-950 text-white ">
       <section>
         <div className=" flex items-center justify-center ">
           <div className=" flex flex-col justify-center items-center ">

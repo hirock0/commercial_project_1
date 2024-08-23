@@ -14,12 +14,11 @@ interface Props {
 
 const Comment: React.FC<Props> = ({ productId, comments }) => {
   const [commentFlag, setCommentFlag] = useState(false);
-  const[commentLength,setCommentLength]=useState(0)
+  const [commentLength, setCommentLength] = useState(0);
 
-  const  onComment = ()=>{
-    setCommentLength(comments.length)
-  }
-
+  const onComment = () => {
+    setCommentLength(comments.length);
+  };
 
   const {
     register,
@@ -72,7 +71,7 @@ const Comment: React.FC<Props> = ({ productId, comments }) => {
         Comments
       );
       if (senComments?.data.success) {
-        setCommentLength((prev)=>prev + 1)
+        setCommentLength((prev) => prev + 1);
         reset();
       }
     } else {

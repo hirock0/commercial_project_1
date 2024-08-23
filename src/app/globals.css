@@ -15,12 +15,15 @@ html {
   scroll-behavior: smooth;
 }
 body {
-  @apply bg-slate-100;
+  @apply bg-black;
 }
 main,
 footer,
 nav {
   @apply pl-5 pr-5;
+}
+main {
+  @apply container mx-auto;
 }
 
 .ourSuccessText {
@@ -44,13 +47,5 @@ nav {
 @keyframes typing {
   100% {
     left: 105%;
-  }
-}
-
-@media (min-width: 1921px) {
-  main,
-  footer {
-    padding-left: 10%;
-    padding-right: 10%;
   }
 }

@@ -23,9 +23,9 @@ const ShowRoomArray = [
     id: 2,
     title: "Hirock LTD.",
     location: "Korang Bazar, Dinajpur",
-    showRooomDescriptions: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium voluptatem quae, maxime placeat quia est molestias assumenda vitae quas officia ab mollitia necessitatibus fugiat architecto, amet odit reiciendis, nihil sit. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quibusdam iure asperiores rem, incidunt, voluptatibus voluptate voluptatem, ratione placeat alias recusandae quaerat sit doloribus consequatur eos? Quam consequatur voluptatum eius fuga!",
+    showRooomDescriptions:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium voluptatem quae, maxime placeat quia est molestias assumenda vitae quas officia ab mollitia necessitatibus fugiat architecto, amet odit reiciendis, nihil sit. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quibusdam iure asperiores rem, incidunt, voluptatibus voluptate voluptatem, ratione placeat alias recusandae quaerat sit doloribus consequatur eos? Quam consequatur voluptatum eius fuga!",
     image: "/assets/car_garage.jpg",
-
   },
   ,
   {
@@ -74,10 +74,16 @@ const Show_Rooms = () => {
             <div className="h-[300px] max-md:w-full w-1/2 px-5 max-md:px-0 max-md:pt-5">
               <h1 className="text-center text-xl">{item.title}</h1>
               <div className=" ">
-                <Image src={"/assets/map_1.svg"} alt="mapPin" width={20} height={20}/>
-                <p className=" text-wrap max-sm:text-xs mt-3 underline underline-offset-4">{item.location}</p>
+                <Image
+                  src={"/assets/map_1.svg"}
+                  alt="mapPin"
+                  width={20}
+                  height={20}
+                />
+                <p className=" text-wrap max-sm:text-xs mt-3 underline underline-offset-4">
+                  {item.location}
+                </p>
               </div>
-             
 
               {/* btn */}
               <SeemoreBtn descriptions={item.showRooomDescriptions} />

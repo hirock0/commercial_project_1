@@ -8,6 +8,9 @@ import axios from "axios";
 import { signOut, useSession } from "next-auth/react";
 import CustomLoading from "@/components/custom_loading/CustomLoading";
 import toast from "react-hot-toast";
+import { title } from "process";
+import NavData from "./nav_data/navData";
+import { link } from "fs";
 const ProfileNavDetails = [
   {
     id: 0,
@@ -25,7 +28,7 @@ const ProfileNavDetails = [
     id: 2,
     svg: "M21 13V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V13H2V11L3 6H21L22 11V13H21ZM5 13V19H19V13H5ZM4.03961 11H19.9604L19.3604 8H4.63961L4.03961 11ZM6 14H14V17H6V14ZM3 3H21V5H3V3Z",
     title: "Categories",
-    link: "/",
+    link: "/user/informations/categories",
   },
   {
     id: 3,
@@ -44,6 +47,76 @@ const ProfileNavDetails = [
     svg: "M15.1986 9.94447C14.7649 9.5337 14.4859 8.98613 14.4085 8.39384L14.0056 5.31138L11.275 6.79724C10.7503 7.08274 10.1433 7.17888 9.55608 7.06948L6.49998 6.50015L7.06931 9.55625C7.17871 10.1435 7.08257 10.7505 6.79707 11.2751L5.31121 14.0057L8.39367 14.4086C8.98596 14.4861 9.53353 14.7651 9.94431 15.1987L12.0821 17.4557L13.4178 14.6486C13.6745 14.1092 14.109 13.6747 14.6484 13.418L17.4555 12.0823L15.1986 9.94447ZM15.2238 15.5079L13.0111 20.1581C12.8687 20.4573 12.5107 20.5844 12.2115 20.442C12.1448 20.4103 12.0845 20.3665 12.0337 20.3129L8.49229 16.5741C8.39749 16.474 8.27113 16.4096 8.13445 16.3918L3.02816 15.7243C2.69958 15.6814 2.46804 15.3802 2.51099 15.0516C2.52056 14.9784 2.54359 14.9075 2.5789 14.8426L5.04031 10.3192C5.1062 10.1981 5.12839 10.058 5.10314 9.92253L4.16 4.85991C4.09931 4.53414 4.3142 4.22086 4.63997 4.16017C4.7126 4.14664 4.78711 4.14664 4.85974 4.16017L9.92237 5.10331C10.0579 5.12855 10.198 5.10637 10.319 5.04048L14.8424 2.57907C15.1335 2.42068 15.4979 2.52825 15.6562 2.81931C15.6916 2.88421 15.7146 2.95507 15.7241 3.02833L16.3916 8.13462C16.4095 8.2713 16.4739 8.39766 16.5739 8.49245L20.3127 12.0338C20.5533 12.2617 20.5636 12.6415 20.3357 12.8821C20.2849 12.9357 20.2246 12.9795 20.1579 13.0112L15.5078 15.224C15.3833 15.2832 15.283 15.3835 15.2238 15.5079ZM16.0206 17.435L17.4348 16.0208L21.6775 20.2634L20.2633 21.6776L16.0206 17.435Z",
     title: "Trust Rate",
     link: "/",
+  },
+];
+const NavRightLinks = [
+  {
+    id: 0,
+    title: "Category",
+    link: "",
+    data: [
+      {
+        id: 0,
+        category: "Luxury Cars",
+        cat_link: "/",
+        displayImages:
+          "https://cdn.pixabay.com/photo/2019/07/07/14/03/fiat-500-4322521_1280.jpg",
+      },
+      {
+        id: 1,
+        category: "Hybrid & Electric",
+        cat_link: "/",
+        displayImages:
+          "https://cdn.pixabay.com/photo/2014/09/07/22/34/car-race-438467_960_720.jpg",
+      },
+      {
+        id: 2,
+        category: "Sports Cars",
+        cat_link: "/",
+        displayImages:
+          "https://cdn.pixabay.com/photo/2014/09/07/22/34/car-race-438467_960_720.jpg",
+      },
+      {
+        id: 3,
+        category: "Diesel Cars",
+        cat_link: "/",
+        displayImages:
+          "https://cdn.pixabay.com/photo/2014/09/07/22/34/car-race-438467_960_720.jpg",
+      },
+      {
+        id: 4,
+        category: "Diesel Cars",
+        cat_link: "/",
+        displayImages:
+          "https://cdn.pixabay.com/photo/2014/09/07/22/34/car-race-438467_960_720.jpg",
+      },
+      {
+        id: 5,
+        category: "Diesel Cars",
+        cat_link: "/",
+        displayImages:
+          "https://cdn.pixabay.com/photo/2014/09/07/22/34/car-race-438467_960_720.jpg",
+      },
+    ],
+  },
+
+  // --------------------
+
+  {
+    id: 1,
+    title: "About Us",
+    link: "",
+    data: undefined,
+    descriptions:
+      "Hirock Auto Mobile is a leading car company dedicated to providing high-quality vehicles that combine performance, innovation, and style. With a commitment to excellence, we strive to deliver top-tier automotive solutions tailored to meet the diverse needs of our customers. At Hirock Auto Mobile, we drive the future of mobility with a focus on reliability, cutting-edge technology, and customer satisfaction.",
+  },
+  {
+    id: 2,
+    title: "Contact",
+    link: "",
+    descriptions: undefined,
+    data: undefined,
+    contacts: " contaact k",
   },
 ];
 
@@ -137,218 +210,227 @@ const Nav = () => {
   }, []);
 
   return (
-    <nav className=" z-50 bg-black text-white sticky top-0  h-20 flex items-center justify-between">
-      {loggedUser?.userImg == undefined ? (
-        <Image
-          src={"/images/Hirock_logo.png"}
-          alt="HirockLogo"
-          width={40}
-          height={40}
-        />
-      ) : (
-        <div
-          onClick={(e) => {
-            e.stopPropagation(),
-              setProfileFlag(!profileFlag),
-              setMenuFlag(false);
-          }}
-          className=" cursor-pointer"
-        >
+    <nav className=" z-50 bg-black text-white sticky top-0  h-20 flex items-center justify-between ">
+      <section className="flex items-center justify-between  container mx-auto">
+        {loggedUser?.userImg == undefined ? (
           <Image
-            priority
-            src={loggedUser?.userImg || ""}
-            alt="user"
+            src={"/images/Hirock_logo.png"}
+            alt="HirockLogo"
             width={40}
             height={40}
-            className=" rounded-full"
           />
-        </div>
-      )}
-
-      {/* Profile_start */}
-      <div
-        onClick={(e) => e.stopPropagation()}
-        className={`${Style.mainProfileNav} ${
-          !profileFlag ? " -translate-x-full " : "translate-x-0"
-        } ${
-          loggedUser?.email == undefined ? " hidden" : " block"
-        } transition-all max-md:text-sm fixed max-sm:w-52 sm:w-52 md:w-72 h-screen top-20  left-0 bg-slate-800 p-5 overflow-y-scroll pb-32 `}
-      >
-        <div className=" ">
-          <div className=" flex flex-col gap-4 items-center justify-center">
-            <div className="  select-none h-10 w-10 rounded-full overflow-hidden ">
-              <Image
-                src={loggedUser?.userImg}
-                alt="user"
-                width={500}
-                height={500}
-                priority={true}
-                className=" w-full h-full"
-              />
-            </div>
-            <div className="">
-              <h1 className="text-center text-xs">{loggedUser?.name}</h1>
-              <h1 className="text-center text-xs mt-2">{loggedUser.email}</h1>
-            </div>
-          </div>
-        </div>
-        <ul className={` ${Style.profileUl} mt-5 border-t pt-5`}>
-          {ProfileNavDetails.map((item: any, index: any) => (
-            <Link key={index} href={item?.link}>
-              <li className="  flex  gap-5 py-5 pl-5 border-b-2 border-dotted border-purple-600 hover:border hover:border-dotted active:bg-slate-900 hover:rounded-md hover:shadow hover:shadow-white">
-                <svg
-                  className=" w-5 h-5"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="white"
-                >
-                  <path d={item.svg}></path>
-                </svg>
-                <h1>{item.title}</h1>
-              </li>
-            </Link>
-          ))}
-        </ul>
-
-        <div
-          onClick={() => setLogOutPopup(!logOutPopup)}
-          className="py-5 pl-5 rounded-sm bg-slate-700 h-16 select-none mt-5 flex  items-center gap-5 hover:bg-slate-600  active:bg-slate-900"
-        >
-          <svg
-            className=" w-5 h-5"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
+        ) : (
+          <div
+            onClick={(e) => {
+              e.stopPropagation(),
+                setProfileFlag(!profileFlag),
+                setMenuFlag(false);
+            }}
+            className=" cursor-pointer"
           >
-            <path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C15.2713 2 18.1757 3.57078 20.0002 5.99923L17.2909 5.99931C15.8807 4.75499 14.0285 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20C14.029 20 15.8816 19.2446 17.2919 17.9998L20.0009 17.9998C18.1765 20.4288 15.2717 22 12 22ZM19 16V13H11V11H19V8L24 12L19 16Z"></path>
-          </svg>
-          <h1>log out</h1>
-        </div>
+            <Image
+              priority
+              src={loggedUser?.userImg || ""}
+              alt="user"
+              width={40}
+              height={40}
+              className=" rounded-full"
+            />
+          </div>
+        )}
 
+        {/* Profile_start */}
         <div
-          className={`${
-            !logOutPopup ? " hidden" : "block"
-          } select-none flex flex-col gap-5 items-center justify-center absolute top-0  left-0 h-full right-0  bg-slate-800/80`}
+          onClick={(e) => e.stopPropagation()}
+          className={`${Style.mainProfileNav} ${
+            !profileFlag ? " -translate-x-full " : "translate-x-0"
+          } ${
+            loggedUser?.email == undefined ? " hidden" : " block"
+          } transition-all max-md:text-sm fixed max-sm:w-52 sm:w-52 md:w-72 h-screen top-20  left-0 bg-slate-800 p-5 overflow-y-scroll pb-32 `}
         >
-          <h1 className=" text-center text-sm">Do you want to logout?</h1>
-          <div className=" flex gap-3">
-            <button
-              onClick={() => setLogOutPopup(false)}
-              className=" text-sm w-20 h-8 rounded-sm bg-green-600 hover:bg-green-700 active:bg-green-800 "
-            >
-              cancel
-            </button>
-            <button
-              onClick={() =>
-                setTimeout(() => {
-                  sessionData?.data == null
-                    ? onLogout()
-                    : signOut({ redirect: true, callbackUrl: "/" });
-                  setLogoutFlag((prev) => !prev);
-                }, 2000)
-              }
-              className=" text-sm w-20 h-8 rounded-sm bg-amber-600 hover:bg-amber-700 active:bg-amber-800"
-            >
-              Log Out
-            </button>
+          <div className=" ">
+            <div className=" flex flex-col gap-4 items-center justify-center">
+              <div className="  select-none h-10 w-10 rounded-full overflow-hidden ">
+                <Image
+                  src={loggedUser?.userImg}
+                  alt="user"
+                  width={500}
+                  height={500}
+                  priority={true}
+                  className=" w-full h-full"
+                />
+              </div>
+              <div className="">
+                <h1 className="text-center text-xs">{loggedUser?.name}</h1>
+                <h1 className="text-center text-xs mt-2">{loggedUser.email}</h1>
+              </div>
+            </div>
+          </div>
+          <ul className={` ${Style.profileUl} mt-5 border-t pt-5`}>
+            {ProfileNavDetails.map((item: any, index: any) => (
+              <Link key={index} href={item?.link}>
+                <li className="  flex  gap-5 py-5 pl-5 border-b-2 border-dotted border-purple-600 hover:border hover:border-dotted active:bg-slate-900 hover:rounded-md hover:shadow hover:shadow-white">
+                  <svg
+                    className=" w-5 h-5"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="white"
+                  >
+                    <path d={item.svg}></path>
+                  </svg>
+                  <h1>{item.title}</h1>
+                </li>
+              </Link>
+            ))}
+          </ul>
 
-            <div
-              className={`${
-                !logoutFlag ? "hidden" : "block"
-              }  absolute top-0 w-full left-0 bg-slate-800/60`}
+          <div
+            onClick={() => setLogOutPopup(!logOutPopup)}
+            className="py-5 pl-5 rounded-sm bg-slate-700 h-16 select-none mt-5 flex  items-center gap-5 hover:bg-slate-600  active:bg-slate-900"
+          >
+            <svg
+              className=" w-5 h-5"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
             >
-              <CustomLoading />
+              <path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C15.2713 2 18.1757 3.57078 20.0002 5.99923L17.2909 5.99931C15.8807 4.75499 14.0285 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20C14.029 20 15.8816 19.2446 17.2919 17.9998L20.0009 17.9998C18.1765 20.4288 15.2717 22 12 22ZM19 16V13H11V11H19V8L24 12L19 16Z"></path>
+            </svg>
+            <h1>log out</h1>
+          </div>
+
+          <div
+            className={`${
+              !logOutPopup ? " hidden" : "block"
+            } select-none flex flex-col gap-5 items-center bac justify-center absolute top-0  left-0 h-full right-0  bg-slate-800/80`}
+          >
+            <h1 className=" text-center text-sm">Do you want to logout?</h1>
+            <div className=" flex gap-3">
+              <button
+                onClick={() => setLogOutPopup(false)}
+                className=" text-sm w-20 h-8 rounded-sm bg-green-600 hover:bg-green-700 active:bg-green-800 "
+              >
+                cancel
+              </button>
+              <button
+                onClick={() =>
+                  setTimeout(() => {
+                    sessionData?.data == null
+                      ? onLogout()
+                      : signOut({ redirect: true, callbackUrl: "/" });
+                    setLogoutFlag((prev) => !prev);
+                  }, 2000)
+                }
+                className=" text-sm w-20 h-8 rounded-sm bg-amber-600 hover:bg-amber-700 active:bg-amber-800"
+              >
+                Log Out
+              </button>
+
+              <div
+                className={`${
+                  !logoutFlag ? "hidden" : "block"
+                }  absolute top-0 w-full left-0 bg-slate-800/60`}
+              >
+                <CustomLoading />
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Profile_end */}
+        {/* Profile_end */}
 
-      <form
-        onSubmit={(data) => onSearch(data)}
-        className={`${
-          pathname == "/" ? "block" : "hidden"
-        }  md:w-2/5 max-md:w-3/5 flex items-center relative overflow-hidden rounded-full`}
-      >
-        <input
-          value={searchData}
-          onChange={(e) => setSearchData(e.target.value)}
-          type="text"
-          name="search"
-          id="search"
-          placeholder="Search..."
-          className=" outline-none text-black pl-5 h-10 rounded-full w-full  "
-        />
-        <button
-          type="submit"
-          disabled={searchData == ""}
-          className={` cursor-pointer absolute right-0 bg-white h-full flex items-center justify-center w-10`}
+        <form
+          onSubmit={(data) => onSearch(data)}
+          className={`${
+            pathname == "/" ? "block" : "hidden"
+          }  md:w-2/5 max-md:w-3/5 flex items-center relative overflow-hidden rounded-full`}
         >
+          <input
+            value={searchData}
+            onChange={(e) => setSearchData(e.target.value)}
+            type="text"
+            name="search"
+            id="search"
+            placeholder="Search..."
+            className=" outline-none text-black pl-5 h-10 rounded-full w-full  "
+          />
+          <button
+            type="submit"
+            disabled={searchData == ""}
+            className={` cursor-pointer absolute right-0 bg-white h-full flex items-center justify-center w-10`}
+          >
+            <Image
+              src={"/assets/search-2-line.svg"}
+              alt="search"
+              width={20}
+              height={20}
+              className=" "
+              priority
+            />
+          </button>
+        </form>
+
+        <div onClick={(e) => e.stopPropagation()} className=" md:hidden">
           <Image
-            src={"/assets/search-2-line.svg"}
-            alt="search"
-            width={20}
-            height={20}
-            className=" "
+            onClick={() => setMenuFlag(!menuFlag)}
+            src={"/assets/menu-5-fill.svg"}
+            alt="menu"
+            width={25}
+            height={25}
+            className={menuFlag ? "hidden" : "block"}
             priority
           />
-        </button>
-      </form>
+          <Image
+            onClick={() => setMenuFlag(!menuFlag)}
+            src={"/assets/close-line.svg"}
+            alt="menu"
+            width={25}
+            height={25}
+            className={`${!menuFlag ? "hidden" : "block"}`}
+            priority
+          />
+        </div>
 
-      <div onClick={(e) => e.stopPropagation()} className=" md:hidden">
-        <Image
-          onClick={() => setMenuFlag(!menuFlag)}
-          src={"/assets/menu-5-fill.svg"}
-          alt="menu"
-          width={25}
-          height={25}
-          className={menuFlag ? "hidden" : "block"}
-          priority
-        />
-        <Image
-          onClick={() => setMenuFlag(!menuFlag)}
-          src={"/assets/close-line.svg"}
-          alt="menu"
-          width={25}
-          height={25}
-          className={`${!menuFlag ? "hidden" : "block"}`}
-          priority
-        />
-      </div>
-
-      <ul
-        onClick={(e) => e.stopPropagation()}
-        className={` ${Style.navUl} max-md:${
-          !menuFlag ? "  max-md:translate-x-full" : " max-md:translate-x-0"
-        } overflow-y-scroll h-1/2 text-nowrap max-md:text-sm max-md:transition-all max-md:fixed max-md:right-0 max-md:top-20 max-md:backdrop:filter max-md:backdrop-blur-3xl max-md:p-5 max-md:w-52 max-md:flex-col max-md:items-start max-md:justify-normal flex items-center justify-between gap-5`}
-      >
-        <Link href={"/"}>
-          <li>Home</li>
-        </Link>
-        <Link href={"/"}>
-          <li>Category</li>
-        </Link>
-        <Link href={"/"}>
-          <li>About Us</li>
-        </Link>
-        <Link href={"/"}>
-          <li>Contact</li>
-        </Link>
-        <Link
-          className={`${
-            loggedUser.email == "hirockdutta0@gmail.com" ? "block" : " hidden"
-          }`}
-          href={"/admin/product_upload"}
+        <ul
+          onClick={(e) => e.stopPropagation()}
+          className={` ${Style.navUl} max-md:${
+            !menuFlag ? "  max-md:translate-x-full" : " max-md:translate-x-0"
+          } overflow-y-scroll h-1/2 text-nowrap max-md:text-sm max-md:transition-all max-md:fixed max-md:right-0 max-md:top-20 max-md:backdrop:filter max-md:backdrop-blur-3xl max-md:p-5 max-md:w-52 max-md:flex-col max-md:items-start max-md:justify-normal flex items-center justify-between gap-5`}
         >
-          <li>Admin</li>
-        </Link>
-        {loggedUser.userId == undefined ? (
-          <Link href={"/user/login"}>
-            <li>Login</li>
+          <Link href={"/"}>
+            <li>Home</li>
           </Link>
-        ) : null}
-      </ul>
+
+          {/* ---------------------------------------------- */}
+          <ul className=" md:hidden w-full flex flex-col gap-5">
+            {NavRightLinks.map((item: any, index: any) => (
+              <Link href={item.link} key={index}>
+                <li className={``}>{item.title}</li>
+              </Link>
+            ))}
+          </ul>
+          {NavRightLinks.map((item: any, index: any) => (
+            <NavData key={index} title={item.title} item={item} />
+          ))}
+
+          {/* -------------------------- */}
+          <Link
+            className={`${
+              loggedUser.email == "hirockdutta0@gmail.com" ? "block" : " hidden"
+            }`}
+            href={"/admin/product_upload"}
+          >
+            <li>Admin</li>
+          </Link>
+          {loggedUser.userId == undefined ? (
+            <Link href={"/user/login"}>
+              <li>Login</li>
+            </Link>
+          ) : null}
+        </ul>
+      </section>
+
+      {/* --------------------- */}
     </nav>
   );
 };

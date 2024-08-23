@@ -64,14 +64,13 @@ export const authOption: NextAuthOptions = {
             name: user?.name,
             email: user?.email,
             userImg: user?.image,
-            contact:"",
-            address:{
-              division:"",
-              district:"",
-              thana:"",
-              postOffice:"",
-              postCode:"",
-          
+            contact: "",
+            address: {
+              division: "",
+              district: "",
+              thana: "",
+              postOffice: "",
+              postCode: "",
             },
             recentDate: new Date().toLocaleDateString(),
           });

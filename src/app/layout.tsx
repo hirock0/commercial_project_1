@@ -6,6 +6,7 @@ import Footer from "@/components/nav+footer/footer/footer";
 import { Toaster } from "react-hot-toast";
 import AuthProvider from "@/context/AuthProviders";
 import { Poppins } from "next/font/google";
+import ReduxProvider from "@/utils/redux/reduxProvider";
 const poppins = Poppins({
   weight: ["400", "400"],
   subsets: ["latin"],
@@ -23,22 +24,24 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <AuthProvider>
-        <body className={poppins.className}>
-          <Toaster
-            toastOptions={{
-              style: {
-                background: "rgb(0, 114, 145)",
-                color: "white",
-              },
-            }}
-          />
+      <ReduxProvider>
+        <AuthProvider>
+          <body className={poppins.className}>
+            <Toaster
+              toastOptions={{
+                style: {
+                  background: "rgb(0, 114, 145)",
+                  color: "white",
+                },
+              }}
+            />
 
-          <Nav />
-          {children}
-          <Footer />
-        </body>
-      </AuthProvider>
+            <Nav />
+            {children}
+            <Footer />
+          </body>
+        </AuthProvider>
+      </ReduxProvider>
     </html>
   );
 }
