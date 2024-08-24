@@ -15,7 +15,7 @@
     "import/named": "off",
     "import/default": "error",
     "import/namespace": "off",
-    "import/no-named-as-default": "error",
+    "import/no-named-as-default": ["off"],
     " react-hooks/exhaustive-deps":["off"]
 
   }

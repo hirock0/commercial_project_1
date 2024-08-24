@@ -8,9 +8,14 @@ import axios from "axios";
 import { signOut, useSession } from "next-auth/react";
 import CustomLoading from "@/components/custom_loading/CustomLoading";
 import toast from "react-hot-toast";
-import { title } from "process";
 import NavData from "./nav_data/navData";
-import { link } from "fs";
+import { BsTwitter } from "react-icons/bs";
+import { BsFacebook } from "react-icons/bs";
+import { BsInstagram } from "react-icons/bs";
+import { BsEnvelopeOpen } from "react-icons/bs";
+import { BsFillTelephoneFill } from "react-icons/bs";
+import { CiLocationOn } from "react-icons/ci";
+import { BsLinkedin } from "react-icons/bs";
 const ProfileNavDetails = [
   {
     id: 0,
@@ -53,7 +58,7 @@ const NavRightLinks = [
   {
     id: 0,
     title: "Category",
-    link: "",
+    link: "/info/category",
     data: [
       {
         id: 0,
@@ -105,18 +110,32 @@ const NavRightLinks = [
   {
     id: 1,
     title: "About Us",
-    link: "",
+    link: "/info/about_us",
     data: undefined,
     descriptions:
       "Hirock Auto Mobile is a leading car company dedicated to providing high-quality vehicles that combine performance, innovation, and style. With a commitment to excellence, we strive to deliver top-tier automotive solutions tailored to meet the diverse needs of our customers. At Hirock Auto Mobile, we drive the future of mobility with a focus on reliability, cutting-edge technology, and customer satisfaction.",
   },
   {
     id: 2,
-    title: "Contact",
-    link: "",
+    title: "contacts",
+    link: "/info/contacts",
     descriptions: undefined,
     data: undefined,
-    contacts: " contaact k",
+    contacts: {
+      email: { icon: <BsEnvelopeOpen />, email: "hirockdutta0@gmail.com" },
+      phone: {
+        icon: <BsFillTelephoneFill />,
+        phone: "01700554293, 01945055264",
+      },
+      facebook: { icon: <BsFacebook /> },
+      instagram: { icon: <BsInstagram /> },
+      twitter: { icon: <BsTwitter /> },
+      linkedIn: { icon: <BsLinkedin /> },
+      address: {
+        icon: <CiLocationOn />,
+        address: "Bahadurpur, Manirampur, Jashore",
+      },
+    },
   },
 ];
 
@@ -338,7 +357,8 @@ const Nav = () => {
         </div>
 
         {/* Profile_end */}
-
+        {/* ---------------- */}
+        {/* search_section_start */}
         <form
           onSubmit={(data) => onSearch(data)}
           className={`${
@@ -369,8 +389,16 @@ const Nav = () => {
             />
           </button>
         </form>
-
-        <div onClick={(e) => e.stopPropagation()} className=" md:hidden">
+        {/* search_section_end */}
+        {/* ----------------- */}
+        {/* right_linksData_start */}
+        {/* hamb_start */}
+        <div
+          onClick={(e) => {
+            e.stopPropagation(), setProfileFlag(false);
+          }}
+          className=" md:hidden"
+        >
           <Image
             onClick={() => setMenuFlag(!menuFlag)}
             src={"/assets/menu-5-fill.svg"}
@@ -390,7 +418,7 @@ const Nav = () => {
             priority
           />
         </div>
-
+        {/* hamb_end */}
         <ul
           onClick={(e) => e.stopPropagation()}
           className={` ${Style.navUl} max-md:${
@@ -403,12 +431,21 @@ const Nav = () => {
 
           {/* ---------------------------------------------- */}
           <ul className=" md:hidden w-full flex flex-col gap-5">
+            {/* ------------ */}
             {NavRightLinks.map((item: any, index: any) => (
               <Link href={item.link} key={index}>
-                <li className={``}>{item.title}</li>
+                <li
+                  className={`${
+                    pathname == item.link ? " text-yellow-300" : null
+                  }`}
+                >
+                  {item.title}
+                </li>
               </Link>
             ))}
           </ul>
+          {/* ----------- */}
+
           {NavRightLinks.map((item: any, index: any) => (
             <NavData key={index} title={item.title} item={item} />
           ))}
@@ -420,14 +457,27 @@ const Nav = () => {
             }`}
             href={"/admin/product_upload"}
           >
-            <li>Admin</li>
+            <li
+              className={`${
+                pathname == "/admin/product_upload" ? "text-yellow-300" : null
+              }`}
+            >
+              Admin
+            </li>
           </Link>
           {loggedUser.userId == undefined ? (
             <Link href={"/user/login"}>
-              <li>Login</li>
+              <li
+                className={`${
+                  pathname == "/user/login" ? "text-yellow-300" : null
+                }`}
+              >
+                Login
+              </li>
             </Link>
           ) : null}
         </ul>
+        {/* right_linksData_end */}
       </section>
 
       {/* --------------------- */}

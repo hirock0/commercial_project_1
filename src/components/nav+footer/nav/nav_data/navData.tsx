@@ -60,7 +60,72 @@ const NavData: React.FC<Props> = ({ title, item }) => {
             </div>
           ) : (
             <div className="">
-              <p className="">{item?.contacts}</p>
+              <ul className=" flex flex-col gap-3">
+                <li className=" hover:underline  flex items-center gap-5">
+                  <div className="">{item?.contacts?.email?.icon}</div>{" "}
+                  <h1 className="">{item?.contacts?.email?.email}</h1>
+                </li>
+                <li className=" hover:underline flex items-center gap-5">
+                  <div className="">{item?.contacts?.phone?.icon}</div>{" "}
+                  <h1 className="">{item?.contacts?.phone?.phone}</h1>
+                </li>
+                <li className=" hover:underline active:text-yellow-600 flex items-center gap-5">
+                  <div className="">{item?.contacts?.facebook?.icon} </div>{" "}
+                  <div className="">
+                    <Link
+                      target="_blank"
+                      href={
+                        "https://www.facebook.com/profile.php?id=100028605347325"
+                      }
+                    >
+                      Facebook
+                    </Link>
+                  </div>
+                </li>
+                <li className=" hover:underline active:text-yellow-600 flex items-center gap-5">
+                  <div className="">{item?.contacts?.instagram?.icon} </div>{" "}
+                  <div className="">
+                    <Link
+                      target="_blank"
+                      href={
+                        "https://www.facebook.com/profile.php?id=100028605347325"
+                      }
+                    >
+                      Instagram
+                    </Link>
+                  </div>
+                </li>
+                <li className=" hover:underline active:text-yellow-600 flex items-center gap-5">
+                  <div className="">{item?.contacts?.twitter?.icon} </div>{" "}
+                  <div className="">
+                    <Link
+                      target="_blank"
+                      href={
+                        "https://www.facebook.com/profile.php?id=100028605347325"
+                      }
+                    >
+                      Twitter
+                    </Link>
+                  </div>
+                </li>
+                <li className=" hover:underline active:text-yellow-600 flex items-center gap-5">
+                  <div className="">{item?.contacts?.linkedIn?.icon} </div>{" "}
+                  <div className="">
+                    <Link
+                      target="_blank"
+                      href={
+                        "https://www.facebook.com/profile.php?id=100028605347325"
+                      }
+                    >
+                      linkedIn
+                    </Link>
+                  </div>
+                </li>
+                <li className=" hover:underline  flex items-center gap-5">
+                  <div className="">{item?.contacts?.address?.icon}</div>{" "}
+                  <h1 className="">{item?.contacts?.address?.address}</h1>
+                </li>
+              </ul>
             </div>
           )}
         </div>

@@ -80,7 +80,7 @@ const Car_details = (props: any) => {
             onClick={() =>
               toast.success("payment funtion will be added later.")
             }
-            className=" mt-5  text-white pt-3 pb-3 rounded-md bg-orange-600 hover:bg-orange-700 active:bg-orange-800 border w-1/2"
+            className=" mt-5  text-white pt-3 pb-3 rounded-md shadow shadow-white bg-orange-600 hover:bg-orange-700 active:bg-orange-800 w-1/2"
           >
             Buy Now
           </button>
